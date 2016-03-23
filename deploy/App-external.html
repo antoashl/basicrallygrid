@@ -3,11 +3,11 @@
 <head>
     <title>basicrallygrid</title>
 
-    <script type="text/javascript" src="https://rally1.rallydev.com/apps/2.0/sdk.js"></script>
+    <script type="text/javascript" src="https://rally1.rallydev.com/apps/2.0rc2/sdk.js"></script>
 
     <script type="text/javascript">
         Rally.onReady(function () {
-                Ext.define("CustomApp",{extend:"Rally.app.App",componentCls:"app",launch:function(){}});
+                Ext.define("CustomApp",{extend:"Rally.app.App",componentCls:"app",launch:function(){console.log("my first app, JSONP setting killed a lot of time !!!"),this._loadDataFromRally()},_loadDataFromRally:function(){var myFirstStore=Ext.create("Rally.data.wsapi.Store",{model:"Defect",autoLoad:!0,listeners:{load:function(store,data,success){console.log("yay got data !",store,data,success),this._printData(myFirstStore)},scope:this},fetch:["FormattedID","Name","ScheduleState","AcceptedDate"]})},_printData:function(myFirstStore){var myGrid=Ext.create("Rally.ui.grid.Grid",{store:myFirstStore,columnCfgs:["FormattedID","Name","ScheduleState","AcceptedDate"]});console.log("yay see my grid !",myGrid),this.add(myGrid)}});
 
             Rally.launchApp('CustomApp', {
                 name:"basicrallygrid",
